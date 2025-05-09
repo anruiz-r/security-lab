@@ -29,11 +29,11 @@ public class UserServiceTest {
         System.out.println("Initial user: " + user);
         userService.saveUser(user);
     }
-
-    @AfterEach
-    public void tearDown() {
-        userRepository.delete(user);
-    }
+//
+//    @AfterEach
+//    public void tearDown() {
+//        userRepository.delete(user);
+//    }
 
     @Test
     @DisplayName("Password encryption is correct")
