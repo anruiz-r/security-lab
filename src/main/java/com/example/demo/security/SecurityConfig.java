@@ -20,32 +20,16 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Configuration
-    @EnableWebSecurity
-    public class SecurityConfig {
-
-        // previous code...
 
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
                     .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
-                            .anyRequest().permitAll() // Allow all requests temporarily
-                    );
-            return http.build();
-        }
+                        .requestMatchers("/public/**").permitAll()
+                        .anyRequest().authenticated()
+                    )
+                    .httpBasic(Customizer.withDefaults());
+        return http.build();
     }
-
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/public/**").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .httpBasic(Customizer.withDefaults());
-//        return http.build();
-//    }
 }
